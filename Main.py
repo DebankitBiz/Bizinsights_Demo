@@ -84,7 +84,7 @@ def main():
 
     # st.image(r"logo.jpg", width=200)
 
-    config_df = pd.read_csv(r'./Data/ConfigAll_Biz.csv')
+    config_df = pd.read_csv('ConfigAll_Biz.csv')
 
     # Select only the first six columns
     # config_df_first_six = config_df.iloc[:, :6]
