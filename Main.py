@@ -1,65 +1,27 @@
-import streamlit as st
-import pandas as pd
-import altair as alt
-import numpy as np
-
-import streamlit as st
-import pandas as pd
-from datetime import timedelta
-
-import seaborn as sns
-import numpy as np
-from prophet import Prophet
-#from ipywidgets import interacttest_html_code_working_tooltip
-import ipywidgets as widgets
-from sklearn.metrics import mean_absolute_percentage_error
-import matplotlib.pyplot as plt
-import matplotlib.ticker as tickrouner
-import pandas as pd
 from prophet import Prophet
 from sklearn.metrics import mean_absolute_percentage_error
-import datetime
-import xlrd
-import seaborn as sns
 import plotly.express as px
-from collections import defaultdict
-import missingno as msno
+
 from statsmodels.stats.proportion import proportions_ztest
-import ipywidgets as widgets
-from IPython import display as d
-import numpy as np
-import holidays
+
 from IPython.display import display, HTML, Markdown
-import matplotlib.pyplot as plt
-from datetime import datetime, timedelta
-import warnings
-from ipywidgets import interact, Dropdown
-from itertools import product
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-import logging
+
 from IPython.display import HTML
 from datetime import timedelta
 import seaborn as sns
-import ast
-import sys
-import pandas as pd
+
 import matplotlib.pyplot as plt
 import altair as alt
-import textwrap
+
 from streamlit import components
 import streamlit as st
-
-import streamlit as st
 import pandas as pd
-import matplotlib.ticker as ticker
+
 import streamlit.components.v1 as comp
 
 
-import streamlit.components.v1 as components
 
-import html_code
 from html_code import render_dataframe_with_tooltips
-
 
 def main():
     st.set_option('deprecation.showPyplotGlobalUse', False)
