@@ -17,3 +17,5 @@ Altair== 4.2.2
 Pandas== 2.2.1
 
 prophet== 1.1.5
+
+sklearn
