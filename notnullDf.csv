@@ -1,0 +1,17 @@
+Dimension,NOT NULL Check Result,NOT NULL Comment
+PRODUCT,Pass,
+PROD_LVL,Pass,
+SPECIALTY,Pass,
+SUB_SPECIALTY,Pass,
+SP_SOURCE,Pass,
+ds,Pass,
+INDICATION,Pass,
+MARKET_FLAG,Pass,
+LEVEL_0_MARKET_FLAG,Pass,
+BIOSIMILAR_MOLECULE,Pass,
+CLASS,Pass,
+METRIC,Pass,
+COMPETITIVE_RX,Pass.,Not significantly different from historical trend
+TOTAL_RX,Pass.,Not significantly different from historical trend
+ALLOCATED_WITHOUT_FDAP_RX,Pass.,Not significantly different from historical trend
+ALLOCATED_WITH_FDAP_RX,Pass.,Not significantly different from historical trend

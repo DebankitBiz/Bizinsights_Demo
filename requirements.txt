@@ -1,0 +1,12 @@
+streamlit
+sklearn.metrics
+plotly.express
+statsmodels.stats.proportion
+IPython.display
+datetime
+seaborn
+matplotlib.pyplot
+altair
+pandas
+streamlit.components.v1
+html_code
