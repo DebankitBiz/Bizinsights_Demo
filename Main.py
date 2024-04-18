@@ -1315,7 +1315,7 @@ def main():
                     "NOT NULL Check Result": "Status",
                     "NOT NULL Comment": "Comments"})
                 df_Null['Check'] = 'Not_Null'
-                df_Zero = pd.read_csv(r'./Zero_check_results.csv')
+                df_Zero = pd.read_csv(r'./zero_check_results.csv')
                 df_Zero['Check'] = 'Not_Zero'
                 result = pd.concat([df_unique, df_Null,df_Zero], axis=0)
 
