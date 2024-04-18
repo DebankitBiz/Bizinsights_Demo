@@ -6,7 +6,7 @@ import numpy as np
 import streamlit as st
 import pandas as pd
 from datetime import timedelta
-import matplotlib.pyplot as plt
+
 import seaborn as sns
 import numpy as np
 from prophet import Prophet
