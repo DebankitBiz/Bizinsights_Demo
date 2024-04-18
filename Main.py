@@ -710,7 +710,7 @@ def main():
 
                 filtered_data = filtered_data.groupby(LIST_OF_AGGREGATE_COLUMNS).agg({'y': 'sum'}).reset_index()
 
-                df_holidays_manual = pd.read_csv(r'./Data/holidays_1.csv')
+                df_holidays_manual = pd.read_csv('holidays_1.csv')
                 df_holidays_manual = df_holidays_manual.dropna()
 
                 model = Prophet(interval_width=0.95, holidays=df_holidays_manual)
