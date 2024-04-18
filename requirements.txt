@@ -1,21 +1,29 @@
-Streamlit== 1.32.2
-
-ipywidgets==8.1.2
-
-Plotly.Express== 0.4.0
-
-Statsmodels== 0.14.1
-
-IPython== 8.22.2
-
-Seaborn== 0.13.2
-
-Matplotlib== 3.8.3
-
-Altair== 4.2.2
-
-Pandas== 2.2.1
-
-prophet== 1.1.5
-
-sklearn
+streamlit
+pandas
+altair
+numpy
+datetime
+matplotlib.pyplot
+seaborn
+prophet
+ipywidgets
+sklearn.metrics
+matplotlib.ticker
+xlrd
+seaborn
+plotly.express
+collections
+missingno
+statsmodels.stats.proportion
+ipywidgets
+IPython
+holidays
+IPython.display
+warnings
+ipywidgets
+itertools
+logging
+IPython.display
+ast
+streamlit.components.v1
+html_code
