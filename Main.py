@@ -1,4 +1,4 @@
-from prophet import Prophet
+
 from sklearn.metrics import mean_absolute_percentage_error
 import plotly.express as px
 
