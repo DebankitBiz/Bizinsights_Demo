@@ -1,12 +1,17 @@
-streamlit
-sklearn.metrics
-plotly.express
-statsmodels.stats.proportion
-IPython.display
-datetime
-seaborn
-matplotlib.pyplot
-altair
-pandas
-streamlit.components.v1
-html_code
+Streamlit== 1.32.2
+
+sklearn== 1.4.1.post1
+
+Plotly Express== 5.20.0
+
+Statsmodels== 0.14.1
+
+IPython== 8.22.2
+
+Seaborn== 0.13.2
+
+Matplotlib== 3.8.3
+
+Altair== 4.2.2
+
+Pandas== 2.2.1
