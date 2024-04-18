@@ -2,7 +2,7 @@ Streamlit== 1.32.2
 
 sklearn== 1.4.1.post1
 
-Plotly Express== 5.20.0
+Plotly.Express== 5.20.0
 
 Statsmodels== 0.14.1
 
