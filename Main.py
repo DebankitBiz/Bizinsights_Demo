@@ -48,6 +48,21 @@ def login_page():
     st.write("# Login")
 
     # Get username and password input from the user
+    st.markdown(
+        """
+        <style>
+        /* Style for text input boxes */
+        input[type="text"],
+        input[type="password"] {
+            background-color: #D3D3D3; /* Set background color to red */
+            color: #000000; /* Set text color to white */
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Get username and password input from the user
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
 
