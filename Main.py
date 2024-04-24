@@ -25,7 +25,48 @@ import streamlit.components.v1 as comp
 
 from html_code import render_dataframe_with_tooltips
 
+def authenticate(username, password):
+
+    return username == "Bizinsight" and password == "Bizinsight@2024"
+
+# Define the login page content
+def login_page():
+    # Add CSS to set the background image
+    page_bg_img = '''
+        <style>
+        [data-testid="stAppViewContainer"]
+        {
+        background-image: url("https://www.shutterstock.com/image-illustration/creative-digital-business-screen-background-600nw-744577681.jpg");
+        background-size: cover;
+        }
+        </style>
+        '''
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+
+
+    # Write the login form
+    st.write("# Login")
+
+    # Get username and password input from the user
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    # If the user clicks the "Login" button
+    if st.button("Login"):
+        # Authenticate the user
+        if authenticate(username, password):
+            # Store the authentication state in session state
+            st.session_state.logged_in = True
+            st.success("Logged in successfully!")
+        else:
+            st.error("Invalid username or password")
+
+# Define the main content of the application
 def main():
+    # Display the login page if the user is not logged in
+    if "logged_in" not in st.session_state or not st.session_state.logged_in:
+        login_page()
+        return
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.set_option('deprecation.showfileUploaderEncoding', False)
     global graphNumber, appendReal, PATTERN_CHECKS_RESULTS, container_Brand_volume, container_data_uniqueness , output_file
