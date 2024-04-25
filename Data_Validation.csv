@@ -1,0 +1,50 @@
+Dimension,Status,Comments,Check
+PRODUCT,Pass.,Proportionate with historical Unique trend,Unique
+PROD_LVL,Pass.,Proportionate with historical Unique trend,Unique
+SPECIALTY,Pass.,Proportionate with historical Unique trend,Unique
+SUB_SPECIALTY,Pass.,Proportionate with historical Unique trend,Unique
+SP_SOURCE,Pass.,Proportionate with historical Unique trend,Unique
+ds,Pass.,Proportionate with historical Unique trend,Unique
+INDICATION,Pass.,Proportionate with historical Unique trend,Unique
+MARKET_FLAG,Pass.,Proportionate with historical Unique trend,Unique
+LEVEL_0_MARKET_FLAG,Pass.,Proportionate with historical Unique trend,Unique
+BIOSIMILAR_MOLECULE,Pass.,Proportionate with historical Unique trend,Unique
+CLASS,Pass.,Proportionate with historical Unique trend,Unique
+METRIC,Pass.,Proportionate with historical Unique trend,Unique
+COMPETITIVE_RX,Pass.,Proportionate with historical Unique trend,Unique
+TOTAL_RX,Pass.,Proportionate with historical Unique trend,Unique
+ALLOCATED_WITHOUT_FDAP_RX,Pass.,Proportionate with historical Unique trend,Unique
+ALLOCATED_WITH_FDAP_RX,Pass.,Proportionate with historical Unique trend,Unique
+PRODUCT,Pass,,Not Null
+PROD_LVL,Pass,,Not Null
+SPECIALTY,Pass,,Not Null
+SUB_SPECIALTY,Pass,,Not Null
+SP_SOURCE,Pass,,Not Null
+ds,Pass,,Not Null
+INDICATION,Pass,,Not Null
+MARKET_FLAG,Pass,,Not Null
+LEVEL_0_MARKET_FLAG,Pass,,Not Null
+BIOSIMILAR_MOLECULE,Pass,,Not Null
+CLASS,Pass,,Not Null
+METRIC,Pass,,Not Null
+COMPETITIVE_RX,Pass.,Not significantly different from historical trend,Not Null
+TOTAL_RX,Pass.,Not significantly different from historical trend,Not Null
+ALLOCATED_WITHOUT_FDAP_RX,Pass.,Not significantly different from historical trend,Not Null
+ALLOCATED_WITH_FDAP_RX,Pass.,Not significantly different from historical trend,Not Null
+PRODUCT,Pass,,Not Zero
+PROD_LVL,Pass,,Not Zero
+SPECIALTY,Pass,,Not Zero
+SUB_SPECIALTY,Pass,,Not Zero
+SP_SOURCE,Pass,,Not Zero
+ds,Pass,,Not Zero
+INDICATION,Pass,,Not Zero
+MARKET_FLAG,Pass,,Not Zero
+LEVEL_0_MARKET_FLAG,Pass,,Not Zero
+BIOSIMILAR_MOLECULE,Pass,,Not Zero
+CLASS,Pass,,Not Zero
+METRIC,Pass,,Not Zero
+COMPETITIVE_RX,Fail,Column contains Zeros,Not Zero
+TOTAL_RX,Fail,Column contains Zeros,Not Zero
+ALLOCATED_WITHOUT_FDAP_RX,Fail,Column contains Zeros,Not Zero
+ALLOCATED_WITH_FDAP_RX,Fail,Column contains Zeros,Not Zero
+WEEK,Pass,,Pattern Check
