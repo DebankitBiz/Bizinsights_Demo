@@ -111,20 +111,23 @@ def main():
     st.markdown(f"<div style='margin-bottom: -70px; font-weight:bold; color:black; text-align:left;'>DQ Monitoring Rules Configuration</div>",unsafe_allow_html=True)
     st.write(' ')
     # Display the DataFrame
-    with st.expander(""):
+    # with st.expander(""):
         
-        show_full_table = st.checkbox("Show full table")
+    #     show_full_table = st.checkbox("Show full table")
 
 
-        if show_full_table:
+    #     if show_full_table:
 
-            st.dataframe(config_df, hide_index=True)
-        else:
-            # Select only the first six columns
-            config_df_first_six = config_df.iloc[:, :8]
-            config_df_first_six = config_df_first_six.reset_index(drop=True)
+    #         st.dataframe(config_df, hide_index=True)
+    #     else:
+    #         # Select only the first six columns
+    #         config_df_first_six = config_df.iloc[:, :8]
+    #         config_df_first_six = config_df_first_six.reset_index(drop=True)
 
-            st.dataframe(config_df_first_six, hide_index=True)
+    #         st.dataframe(config_df_first_six, hide_index=True)
+    with st.expander(""):
+        df_edited = st.data_editor(config_df, hide_index=True)
+        df_edited.to_csv('ConfigAll_Biz.csv', index=False)
 
 
 
