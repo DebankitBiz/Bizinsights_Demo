@@ -36,7 +36,7 @@ def login_page():
         <style>
         [data-testid="stAppViewContainer"]
         {
-        background-image: url("");
+        background-image: url("https://tse3.mm.bing.net/th/id/OIG1.mx9Iuw7cQ.l9_IOhuHDs?pid=ImgGn");
         background-size: cover;
         }
         </style>
