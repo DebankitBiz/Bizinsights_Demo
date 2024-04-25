@@ -1248,6 +1248,75 @@ def main():
                 # check_data_volume_new(EXTRACTED_DATA_FROM_DB, data_freshness_date, columns_for_volume)
                 output_file = "zero_check_results.csv"
                 check_zeros(EXTRACTED_DATA_FROM_DB, output_file)
+
+
+                                # metric code start here
+                Data_freshness = pd.read_csv("freshnessDf.csv")
+                Data_Validation =pd.read_csv("Data_Validation.csv")
+                Brand_Volume = pd.read_csv("Volume_Analysis.csv")
+                Unknown_Unknown = pd.read_csv("PATTERN_CHECKS_RESULTS.csv")
+
+                total_freshness = len(Data_freshness)
+                correct_freshness = len(Data_freshness[Data_freshness["Status"] == "Pass"])
+
+                total_validation = len(Data_Validation)
+                correct_validation = len(Data_Validation[(Data_Validation["Status"] == "Pass")| (Data_Validation["Status"] == "Pass.")])
+
+                total_Brand_volume = len(Brand_Volume)
+                correct_Brand_volume = len(Brand_Volume[Brand_Volume["Status"] == "Pass"])
+
+                total_Unknown = len(Unknown_Unknown)
+                correct_Unknown = len(Unknown_Unknown[Unknown_Unknown["Status"] == "Pass"])
+
+                # Metric Boxes
+                col1, col2, col3, col4, col5 = st.columns(5)
+
+                with col1:
+                    correctness_ratio = f"{correct_freshness}/{total_freshness}"
+                    st.markdown(f"""
+                                        <div style='text-align: center; background-color: #D3D3D3; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                            <h8 style='margin: 0;'>Data Freshness</h8>
+                                            <p style='font-size: 15px; margin: 0;'> <strong>{correctness_ratio}</strong></p>
+                                        </div>
+                                    """, unsafe_allow_html=True)
+
+                with col2:
+                    correctness_ratio = f"{correct_Brand_volume}/{total_Brand_volume}"
+                    st.markdown(f"""
+                                      <div style='text-align: center; background-color: #D3D3D3; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                        <h8 style='margin: 0;'>Novartis Brand Volume</h8>
+                                        <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
+                                      </div>
+                                  """, unsafe_allow_html=True)
+
+                with col3:
+                    correctness_ratio = f"{correct_Unknown}/{total_Unknown}"
+                    st.markdown(f"""
+                                     <div style='text-align: center; background-color: #D3D3D3; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                       <h8 style='margin: 0;'>Novartis Brand Volume</h8>
+                                       <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
+                                     </div>
+                                """, unsafe_allow_html=True)
+
+                with col4:
+                    correctness_ratio = f"{correct_validation}/{total_validation}"
+                    st.markdown(f"""
+                                        <div style='text-align: center; background-color: #D3D3D3; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                            <h8 style='margin: 0;'>Data Validation</h8>
+                                            <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
+                                        </div>
+                                    """, unsafe_allow_html=True)
+
+                with col5:
+                    st.markdown("""
+                                        <div style='text-align: center; background-color: #D3D3D3; color: Black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                            <h8 style='margin: 0;'>Rule Based Checks</h3>
+                                            <p style='font-size: 15px; margin: 0;'> <span style="font-weight:bold;">1/1</span></p>
+                                        </div>
+                                    """, unsafe_allow_html=True)
+
+                st.write("\n\n")
+
                 ##Check Function
                 check_columns_new(EXTRACTED_DATA_FROM_DB, baseline, baseline_obs, data_freshness_date,columns_for_not_nulls, columns_to_check_uniqueness)
                 uniqueDf.to_csv('uniqueDf.csv', index=False)
