@@ -165,8 +165,7 @@ def main():
         #(config_df['ID'] == number).any()
 
         if (config_df['ID'] == number).any():
-            Data_freshness = pd.read_csv("freshnessDf.csv")
-            st.dataframe(Data_freshness)
+       
             def prep_and_split_data(df, threshold_date):
                 df['is_weekend'] = df.ds.dt.day_name().isin(['Saturday', 'Sunday'])
                 threshold_date = pd.to_datetime(threshold_date)
