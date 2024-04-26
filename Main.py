@@ -152,8 +152,7 @@ def main():
 
     # Check if a table is selected
     if selected_cell is not None:
-        Data_freshness = pd.read_csv("freshnessDf.csv")
-        st.dateframe(Data_freshness)
+    
         
         # Get the index of the selected row
         selected_row_index = config_df[config_df['Table Name'] == selected_cell].index[0]
