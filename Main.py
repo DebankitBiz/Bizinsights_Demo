@@ -1274,10 +1274,10 @@ def main():
                 # Metric Boxes
                 col1, col2, col3, col4, col5 = st.columns(5)
 
-                with col1:
+                                with col1:
                     correctness_ratio = f"{correct_freshness}/{total_freshness}"
                     st.markdown(f"""
-                                        <div style='text-align: center; background-color: #D3D3D3; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                        <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                             <h8 style='margin: 0;'>Data Freshness</h8>
                                             <p style='font-size: 15px; margin: 0;'> <strong>{correctness_ratio}</strong></p>
                                         </div>
@@ -1286,7 +1286,7 @@ def main():
                 with col2:
                     correctness_ratio = f"{correct_Brand_volume}/{total_Brand_volume}"
                     st.markdown(f"""
-                                      <div style='text-align: center; background-color: #D3D3D3; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                      <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                         <h8 style='margin: 0;'>Novartis Brand Volume</h8>
                                         <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
                                       </div>
@@ -1295,7 +1295,7 @@ def main():
                 with col3:
                     correctness_ratio = f"{correct_Unknown}/{total_Unknown}"
                     st.markdown(f"""
-                                     <div style='text-align: center; background-color: #D3D3D3; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                     <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                        <h8 style='margin: 0;'>Novartis Brand Volume</h8>
                                        <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
                                      </div>
@@ -1304,7 +1304,7 @@ def main():
                 with col4:
                     correctness_ratio = f"{correct_validation}/{total_validation}"
                     st.markdown(f"""
-                                        <div style='text-align: center; background-color: #D3D3D3; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                        <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                             <h8 style='margin: 0;'>Data Validation</h8>
                                             <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
                                         </div>
@@ -1312,14 +1312,13 @@ def main():
 
                 with col5:
                     st.markdown("""
-                                        <div style='text-align: center; background-color: #D3D3D3; color: Black; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                        <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                             <h8 style='margin: 0;'>Rule Based Checks</h3>
                                             <p style='font-size: 15px; margin: 0;'> <span style="font-weight:bold;">1/1</span></p>
                                         </div>
                                     """, unsafe_allow_html=True)
 
                 st.write("\n\n")
-
                 ##Check Function
                 check_columns_new(EXTRACTED_DATA_FROM_DB, baseline, baseline_obs, data_freshness_date,columns_for_not_nulls, columns_to_check_uniqueness)
                 uniqueDf.to_csv('uniqueDf.csv', index=False)
