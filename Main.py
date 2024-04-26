@@ -1277,7 +1277,7 @@ def main():
                 # Metric Boxes
                 col1, col2, col3, col4, col5 = st.columns(5)
 
-                                with col1:
+                with col1:
                     correctness_ratio = f"{correct_freshness}/{total_freshness}"
                     st.markdown(f"""
                                         <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
