@@ -1289,7 +1289,7 @@ def main():
                     correctness_ratio = f"{correct_Brand_volume}/{total_Brand_volume}"
                     st.markdown(f"""
                                       <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
-                                        <h8 style='margin: 0;'>Novartis Brand Volume</h8>
+                                        <h8 style='margin: 0;'>Brand Volume</h8>
                                         <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
                                       </div>
                                   """, unsafe_allow_html=True)
@@ -1298,7 +1298,7 @@ def main():
                     correctness_ratio = f"{correct_Unknown}/{total_Unknown}"
                     st.markdown(f"""
                                      <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
-                                       <h8 style='margin: 0;'>Novartis Brand Volume</h8>
+                                       <h8 style='margin: 0;'>Table Anomalies</h8>
                                        <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
                                      </div>
                                 """, unsafe_allow_html=True)
