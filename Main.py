@@ -15,7 +15,7 @@ import altair as alt
 
 from streamlit import components
 import streamlit as st
-import pandas as pd
+import padas as pd
 
 import streamlit.components.v1 as comp
 
@@ -726,7 +726,7 @@ def main():
                         # Combine the bar chart and red point chart
                         final_chart = alt.layer(chart, red_point).configure_axis(grid=False)
                         container_pattern = st.container(border = True)
-                        container_pattern.altair_chart(final_chart, use_container_width=True)
+                        container_pattern_check.altair_chart(final_chart, use_container_width=True)
 
 
                         break
@@ -1457,20 +1457,20 @@ def main():
 
 
                 result.reset_index(drop=True, inplace=True)
-                #result = result.sort_values(by='Check', ascending=False)
+                result = result.sort_values(by='Check', ascending=False)
 
-                # unique_conditions = result['Check'].unique()
-                #
-                # selected_condition = container.selectbox("Select Condition", unique_conditions)
-                #
-                # # Filter DataFrame based on selected condition
-                # filtered_result = result[result['Check'] == selected_condition]
+                unique_conditions = result['Check'].unique()
+                
+                selected_condition = container.selectbox("Select Condition", unique_conditions)
+                
+                # Filter DataFrame based on selected condition
+                filtered_result = result[result['Check'] == selected_condition]
 
-                # styled_df = filtered_result.style.applymap(highlight_pass_fail)
-                #
-                # container.dataframe(styled_df, width=1700, hide_index=True)
+                styled_df = filtered_result.style.applymap(highlight_pass_fail)
+                
+                container.dataframe(styled_df, width=1700, hide_index=True)
 
-                html_code = render_dataframe_with_tooltips(result)
+                #html_code = render_dataframe_with_tooltips(result)
 
                 # Render HTML using Streamlit within a container
 
@@ -1609,10 +1609,10 @@ def main():
                                                         else "",
                                                         axis=1)
                 config_df.drop(columns=['Value'],inplace=True)
-                # styled_df = config_df.style.applymap(highlight_pass_fail)
-                # container_pattern_check.dataframe(styled_df, width=1700, hide_index=True)
+                styled_df = config_df.style.applymap(highlight_pass_fail)
+                container_pattern_check.dataframe(styled_df, width=1700, hide_index=True)
                 html_code = render_dataframe_with_tooltips(config_df)
-                st.components.v1.html(html_code, height=450)
+                #st.components.v1.html(html_code, height=450)
 
 
                 Novartis_Brands1 = []
