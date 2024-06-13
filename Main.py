@@ -1354,14 +1354,15 @@ def main():
 
                 config_df.rename(columns={'Comment': 'Comments'}, inplace=True)
 
-                # styled_df = config_df.style.applymap(highlight_pass_fail)
+                styled_df = config_df.style.applymap(highlight_pass_fail)
+                container.markdown(styled_text, unsafe_allow_html=True)
 
                 # Render DataFrame with tooltips using HTML
                 html_code = render_dataframe_with_tooltips(config_df)
 
                 # Render HTML using Streamlit within a container
 
-                st.components.v1.html(html_code, height= 450)
+                #st.components.v1.html(html_code, height= 450)
 
 
 
