@@ -15,7 +15,7 @@ import altair as alt
 
 from streamlit import components
 import streamlit as st
-import pandas as pd
+import panas as pd
 
 import streamlit.components.v1 as comp
 
@@ -1279,7 +1279,7 @@ def main():
                 with col1:
                     correctness_ratio = f"{correct_freshness}/{total_freshness}"
                     st.markdown(f"""
-                                        <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                        <div style='text-align: center; background-color: #B3C9EC; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                             <h8 style='margin: 0;'>Data Freshness</h8>
                                             <p style='font-size: 15px; margin: 0;'> <strong>{correctness_ratio}</strong></p>
                                         </div>
@@ -1288,7 +1288,7 @@ def main():
                 with col2:
                     correctness_ratio = f"{correct_Brand_volume}/{total_Brand_volume}"
                     st.markdown(f"""
-                                      <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                      <div style='text-align: center;background-color: #B3C9EC; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                         <h8 style='margin: 0;'>Brand Volume</h8>
                                         <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
                                       </div>
@@ -1297,7 +1297,7 @@ def main():
                 with col3:
                     correctness_ratio = f"{correct_Unknown}/{total_Unknown}"
                     st.markdown(f"""
-                                     <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                     <div style='text-align: center; background-color: #B3C9EC; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                        <h8 style='margin: 0;'>Table Anomalies</h8>
                                        <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
                                      </div>
@@ -1306,7 +1306,7 @@ def main():
                 with col4:
                     correctness_ratio = f"{correct_validation}/{total_validation}"
                     st.markdown(f"""
-                                        <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                        <div style='text-align: center; background-color: #B3C9EC; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                             <h8 style='margin: 0;'>Data Validation</h8>
                                             <p style='font-size: 15px; margin: 0;'><strong>{correctness_ratio}</strong></p>
                                         </div>
@@ -1314,7 +1314,7 @@ def main():
 
                 with col5:
                     st.markdown("""
-                                        <div style='text-align: center; background-color: #AC3E31; color: white; padding: 5px; border-radius: 10px; max-width: 800px;'>
+                                        <div style='text-align: center; background-color: #B3C9EC; color: black; padding: 5px; border-radius: 10px; max-width: 800px;'>
                                             <h8 style='margin: 0;'>Rule Based Checks</h3>
                                             <p style='font-size: 15px; margin: 0;'> <span style="font-weight:bold;">1/1</span></p>
                                         </div>
@@ -1474,7 +1474,7 @@ def main():
 
                 # Render HTML using Streamlit within a container
 
-                st.components.v1.html(html_code, height=450)
+                #st.components.v1.html(html_code, height=450)
                 textDict = {'d1': 'dval'}
 
                 container_Brand_volume = st.container(border=True)
