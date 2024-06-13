@@ -15,7 +15,7 @@ import altair as alt
 
 from streamlit import components
 import streamlit as st
-import pandas as pd
+import pands as pd
 
 import streamlit.components.v1 as comp
 
