@@ -15,7 +15,7 @@ import altair as alt
 
 from streamlit import components
 import streamlit as st
-import pandas as pd
+import padas as pd
 
 import streamlit.components.v1 as comp
 
@@ -1355,7 +1355,7 @@ def main():
                 config_df.rename(columns={'Comment': 'Comments'}, inplace=True)
 
                 styled_df = config_df.style.applymap(highlight_pass_fail)
-                container.markdown(styled_text, unsafe_allow_html=True)
+                container.dataframe(styled_df, width=1700, hide_index=True)
 
                 # Render DataFrame with tooltips using HTML
                 html_code = render_dataframe_with_tooltips(config_df)
