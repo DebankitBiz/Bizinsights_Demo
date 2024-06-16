@@ -1512,21 +1512,7 @@ def main():
                 # config_df['Lower Threshold'] = config_df['Lower Threshold'].str.rstrip('.0').astype(int)
                 # config_df['Upper Threshold'] = config_df['Upper Threshold'].str.rstrip('.0').astype(int)
                 # Replace empty strings with NaN
-                config_df.replace('', np.nan, inplace=True)
                 
-                # Optionally, you can drop rows with NaN values or fill them with a default value
-                config_df.dropna(subset=['Value', 'Lower Threshold', 'Upper Threshold'], inplace=True)
-                
-                # Alternatively, fill NaN with a default value, e.g., 0
-                # config_df['Value'].fillna(0, inplace=True)
-                # config_df['Lower Threshold'].fillna(0, inplace=True)
-                # config_df['Upper Threshold'].fillna(0, inplace=True)
-                
-                # Now perform the conversion to integers
-                config_df['Value'] = config_df['Value'].str.rstrip('.0').astype(int)
-                config_df['Lower Threshold'] = config_df['Lower Threshold'].str.rstrip('.0').astype(int)
-                config_df['Upper Threshold'] = config_df['Upper Threshold'].str.rstrip('.0').astype(int)
-
                 config_df.drop(columns=['Date'], inplace=True)
                 config_df = config_df[['Granularity', 'Status', 'Lower Threshold', 'Upper Threshold', 'Value']]
                 config_df.rename(columns={'Value': 'Actuals'}, inplace=True)
