@@ -15,7 +15,7 @@ import altair as alt
 
 from streamlit import components
 import streamlit as st
-import pandas as pd
+import padas as pd
 
 import streamlit.components.v1 as comp
 
@@ -1508,9 +1508,9 @@ def main():
 
                 # config_df[columns_to_convert] = config_df[columns_to_convert].apply(lambda x: x.rstrip('.0') if isinstance(x, str) and '.' in x else x)
                 # config_df[columns_to_convert] = config_df[columns_to_convert].apply(lambda x: int(x.rstrip('.0')) if isinstance(x, str) and '.' in x else x)
-                config_df['Value'] = config_df['Value'].str.rstrip('.0').astype(int)
-                config_df['Lower Threshold'] = config_df['Lower Threshold'].str.rstrip('.0').astype(int)
-                config_df['Upper Threshold'] = config_df['Upper Threshold'].str.rstrip('.0').astype(int)
+                # config_df['Value'] = config_df['Value'].str.rstrip('.0').astype(int)
+                # config_df['Lower Threshold'] = config_df['Lower Threshold'].str.rstrip('.0').astype(int)
+                # config_df['Upper Threshold'] = config_df['Upper Threshold'].str.rstrip('.0').astype(int)
 
                 config_df.drop(columns=['Date'], inplace=True)
                 config_df = config_df[['Granularity', 'Status', 'Lower Threshold', 'Upper Threshold', 'Value']]
