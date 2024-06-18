@@ -15,7 +15,7 @@ import altair as alt
 
 from streamlit import components
 import streamlit as st
-import pandas as pd
+import padas as pd
 import numpy as np
 import streamlit.components.v1 as comp
 
@@ -160,6 +160,12 @@ def main():
         # Get the ID number corresponding to the selected row
         selected_id = config_df.iloc[selected_row_index]['ID']
         selected_File_Name = config_df.iloc[selected_row_index]['File_Name']
+        selected_brand_Name = config_df.iloc[selected_row_index]['brands_list']
+        selected_rca_Name = config_df.iloc[selected_row_index]['RCA Analysis Columns']
+
+        selected_brand_Name = str(selected_brand_Name)  # Convert to string if it's not already
+        brands_list = selected_brand_Name.split(";")
+
 
 
         # Print the selected ID number
@@ -1010,7 +1016,8 @@ def main():
             CONFIG_DF = CONFIG_DF[(CONFIG_DF['ID'] == number)].copy()
 
             # Novartis_Brands = ['COSENTYX IV', 'COSENTYX', 'COSENTYX SC']
-            Novartis_Brands = ['Brand1', 'Brand2', 'Brand3']
+            #Novartis_Brands = ['Brand1', 'Brand2', 'Brand3']
+            Novartis_Brands = brands_list
 
             def INITIATE_DATA_QUALITY(EXTRACTED_DATA_FROM_DB, LIST_OF_AGGREGATE_COLUMNS, DATE_COLUMN_IN_DATASET,
                                       METRIC_COLUMN, textDict):
