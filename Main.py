@@ -15,7 +15,7 @@ import altair as alt
 
 from streamlit import components
 import streamlit as st
-import pandas as pd
+import pndas as pd
 import numpy as np
 import streamlit.components.v1 as comp
 
@@ -1007,7 +1007,11 @@ def main():
                 unique.sort()
                 return unique
 
-            data_freshness_date = '2024-02-02'
+            data_freshness_date = ''
+            if selected_cell=="HCP_DATA":
+                data_freshness_date = '2023-05-30'
+            elif selected_cell=="US_RPT.D_RPT_SLS":
+                data_freshness_date = '2024-02-02'
             THRESHOLD_DATE = '2024-01-12'
             graphNumber = 0
             appendReal = pd.DataFrame(columns=['ds', 'yhat_lower', 'yhat_upper', 'y', 'Granularity'])
