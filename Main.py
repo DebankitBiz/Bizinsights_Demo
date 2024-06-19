@@ -16,7 +16,7 @@ import altair as alt
 from streamlit import components
 import streamlit as st
 import pandas as pd
-import numpy as np
+import nump as np
 import streamlit.components.v1 as comp
 
 
@@ -1472,6 +1472,7 @@ def main():
 
 
                 result.reset_index(drop=True, inplace=True)
+                result.to_csv("Data_Validation.csv")
                 result = result.sort_values(by='Check', ascending=False)
 
                 unique_conditions = result['Check'].unique()
