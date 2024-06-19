@@ -16,7 +16,7 @@ import altair as alt
 from streamlit import components
 import streamlit as st
 import pandas as pd
-import numpy as np
+import nump as np
 import streamlit.components.v1 as comp
 
 
@@ -747,264 +747,266 @@ def main():
 
             def RUN_TIME_SERIES_ANALYSIS(filtered_data, selected_combination, LIST_OF_AGGREGATE_COLUMNS, METRIC_COLUMN,
                                          rca_text, metric_val):
+                try:
 
-                graphVal = 10
-                global appendReal, graphNumber, container_Brand_volume
-
-                filtered_data = filtered_data.loc[filtered_data['ds'] > '2023-01-01'].copy()
-                sns_c = sns.color_palette(palette='deep')
-                filtered_data.rename(columns={'Date': 'ds', METRIC_COLUMN: 'y'}, inplace=True)
-                filtered_data_all = filtered_data.copy()
-
-                filtered_data['ds'] = pd.to_datetime(filtered_data['ds'], errors='coerce', dayfirst=True,
-                                                     format='%Y-%m-%d')
-                # st.write('test2')
-                max_date = filtered_data['ds'].max()
-                start_date_52_weeks_ago = max_date - timedelta(weeks=216)
-                filtered_data = filtered_data[filtered_data['ds'] > start_date_52_weeks_ago]
-                filtered_data_historical = filtered_data_all[filtered_data_all['ds'] >= start_date_52_weeks_ago]
-
-                # LIST_OF_AGGREGATE_COLUMNS.append('ds') if 'ds' not in LIST_OF_AGGREGATE_COLUMNS else None
-
-                if 'ds' not in LIST_OF_AGGREGATE_COLUMNS:
-                    LIST_OF_AGGREGATE_COLUMNS.append('ds')
-
-                filtered_data_historical = filtered_data_historical.groupby(LIST_OF_AGGREGATE_COLUMNS).agg(
-                    {'y': 'sum'}).reset_index()
-
-                if len(filtered_data) == 0:
-                    return 'Data not available for selected combination'
-
-                # filtered_data['ds'] = filtered_data['ds'].dt.tz_localize(None)
-                # excel_path = './Data/BeforeSum.xlsx'
-                # filtered_data.to_excel(excel_path, index=False)
-
-                filtered_data = filtered_data.groupby(LIST_OF_AGGREGATE_COLUMNS).agg({'y': 'sum'}).reset_index()
-
-                df_holidays_manual = pd.read_csv('holidays_1.csv')
-                df_holidays_manual = df_holidays_manual.dropna()
-
-                model = Prophet(interval_width=0.95, holidays=df_holidays_manual)
-
-                model.fit(filtered_data)
-                future = model.make_future_dataframe(periods=1, freq='W-Fri')
-                forecast = model.predict(future)
-                forecast = pd.merge(forecast, filtered_data_historical[['ds', 'y']], on='ds', how='inner')
-                forecast = forecast.sort_values(by='ds')
-
-                forecast['y'] = pd.to_numeric(forecast['y'], errors='coerce')
-                forecast['5%_increase'] = forecast['y'].shift(1) * 1.05
-                forecast['5%_decrease'] = forecast['y'].shift(1) * 0.95
-
-                result_string = ' | '.join(str(x) for x in selected_combination)
-                # Split the result_string based on the delimiter '|'
-                parts = result_string.split(' | ')
-
-                # Save the two parts into separate lists
-                Latest_Week = []
-                Trend_Break = []
-
-                if len(parts) == 2:
-                    Latest_Week.append(parts[0])
-                    Trend_Break.append(parts[1])
-                else:
-                    print("The result_string does not contain exactly two parts.")
-
-
-
-                if graphNumber < graphVal:
-                    ###############################################################################
-                    # GRAPH CODE STARTS HERE
-                    type_of_graphs = ['Manual Thresholds', 'ML Based Thresholds']
-
-                    type_of_graphs = ['ML Based Thresholds']
-                    for graph_type in type_of_graphs:
-                        fig, ax = plt.subplots(figsize=(10, 8))
-
-                        latest_data_point_index = -1
+                    graphVal = 10
+                    global appendReal, graphNumber, container_Brand_volume
+    
+                    filtered_data = filtered_data.loc[filtered_data['ds'] > '2023-01-01'].copy()
+                    sns_c = sns.color_palette(palette='deep')
+                    filtered_data.rename(columns={'Date': 'ds', METRIC_COLUMN: 'y'}, inplace=True)
+                    filtered_data_all = filtered_data.copy()
+    
+                    filtered_data['ds'] = pd.to_datetime(filtered_data['ds'], errors='coerce', dayfirst=True,
+                                                         format='%Y-%m-%d')
+                    # st.write('test2')
+                    max_date = filtered_data['ds'].max()
+                    start_date_52_weeks_ago = max_date - timedelta(weeks=216)
+                    filtered_data = filtered_data[filtered_data['ds'] > start_date_52_weeks_ago]
+                    filtered_data_historical = filtered_data_all[filtered_data_all['ds'] >= start_date_52_weeks_ago]
+    
+                    # LIST_OF_AGGREGATE_COLUMNS.append('ds') if 'ds' not in LIST_OF_AGGREGATE_COLUMNS else None
+    
+                    if 'ds' not in LIST_OF_AGGREGATE_COLUMNS:
+                        LIST_OF_AGGREGATE_COLUMNS.append('ds')
+    
+                    filtered_data_historical = filtered_data_historical.groupby(LIST_OF_AGGREGATE_COLUMNS).agg(
+                        {'y': 'sum'}).reset_index()
+    
+                    if len(filtered_data) == 0:
+                        return 'Data not available for selected combination'
+    
+                    # filtered_data['ds'] = filtered_data['ds'].dt.tz_localize(None)
+                    # excel_path = './Data/BeforeSum.xlsx'
+                    # filtered_data.to_excel(excel_path, index=False)
+    
+                    filtered_data = filtered_data.groupby(LIST_OF_AGGREGATE_COLUMNS).agg({'y': 'sum'}).reset_index()
+    
+                    df_holidays_manual = pd.read_csv('holidays_1.csv')
+                    df_holidays_manual = df_holidays_manual.dropna()
+    
+                    model = Prophet(interval_width=0.95, holidays=df_holidays_manual)
+    
+                    model.fit(filtered_data)
+                    future = model.make_future_dataframe(periods=1, freq='W-Fri')
+                    forecast = model.predict(future)
+                    forecast = pd.merge(forecast, filtered_data_historical[['ds', 'y']], on='ds', how='inner')
+                    forecast = forecast.sort_values(by='ds')
+    
+                    forecast['y'] = pd.to_numeric(forecast['y'], errors='coerce')
+                    forecast['5%_increase'] = forecast['y'].shift(1) * 1.05
+                    forecast['5%_decrease'] = forecast['y'].shift(1) * 0.95
+    
+                    result_string = ' | '.join(str(x) for x in selected_combination)
+                    # Split the result_string based on the delimiter '|'
+                    parts = result_string.split(' | ')
+    
+                    # Save the two parts into separate lists
+                    Latest_Week = []
+                    Trend_Break = []
+    
+                    if len(parts) == 2:
+                        Latest_Week.append(parts[0])
+                        Trend_Break.append(parts[1])
+                    else:
+                        print("The result_string does not contain exactly two parts.")
+    
+    
+    
+                    if graphNumber < graphVal:
+                        ###############################################################################
+                        # GRAPH CODE STARTS HERE
+                        type_of_graphs = ['Manual Thresholds', 'ML Based Thresholds']
+    
+                        type_of_graphs = ['ML Based Thresholds']
+                        for graph_type in type_of_graphs:
+                            fig, ax = plt.subplots(figsize=(10, 8))
+    
+                            latest_data_point_index = -1
+                            latest_data_point_color = 'r'
+                            prior_data_points_color = 'gray'
+    
+                            forecast = forecast.merge(df_holidays_manual[['ds', 'holiday']], on='ds', how='left')
+    
+                            forecast['Legend'] = forecast.apply(lambda row: 'Holiday' if isinstance(row['holiday'], str)else ('Pass' if row['y'] >= row['yhat_lower'] and row['y'] <= row['yhat_upper'] else 'Fail'),axis=1)
+    
+                            holidays_data = forecast[forecast['Legend'] == 'Holiday']
+                            pass_data = forecast[forecast['Legend'] == 'Pass']
+                            fail_data = forecast[forecast['Legend'] == 'Fail']
+    
+                            holidays_data['rca_text'] = holidays_data['holiday'].copy()
+                            fail_data['rca_text'] = ''
+    
+                            ax.plot(pass_data['ds'].values, pass_data['y'].values, 'o', color=prior_data_points_color,
+                                    markersize=2,
+                                    label='Pass Data')
+                            ax.plot(fail_data['ds'].values, fail_data['y'].values, 'o', color=latest_data_point_color,
+                                    markersize=4,
+                                    label='Fail Data', zorder=5)
+                            ax.plot(holidays_data['ds'].values, holidays_data['y'].values, 'o', color='blue', markersize=4,
+                                    label='Holidays', zorder=5)
+    
+                            fail_data = pd.concat([fail_data, holidays_data], ignore_index=True)
+    
+                            for index, row in fail_data.iterrows():
+                                if not row['rca_text']:
+                                    filtered_data.rename(columns={'Date': 'ds', METRIC_COLUMN: 'y'}, inplace=True)
+                                    max_date = row['ds']
+                                    rca_input_df = filtered_data_all.copy()
+                                    if row['y'] > row['yhat_upper']:
+                                        failureType = 'Upper'
+                                    else:
+                                         failureType = 'Lower'
+    
+    
+    
+                                    rca_input_df.rename(columns={'y': METRIC_COLUMN}, inplace=True)
+                                    
+                                    rca_text = custom_rca_for_each_week(max_date, rca_input_df, METRIC_COLUMN, metric_val,failureType)
+                                    fail_data.at[index, 'rca_text'] = rca_text
+    
+                            # convert the list into string
+                            trend_break_string = ", ".join(Trend_Break)
+                            latest_week_string = ", ".join(Latest_Week)
+    
+                            # set the color scale
+                            color_scale = alt.Scale(domain=['Fail', 'Pass', 'Holiday'], range=['red', 'grey', 'blue'])
+    
+                            # Plot the data for rca
+                            rac = alt.Chart(fail_data).mark_circle().encode(
+                                x='ds:T',
+                                y='y:Q',
+                                color=alt.Color('Legend:N', scale=color_scale),
+                                tooltip=[alt.Tooltip('rca_text:N', title="  ")]
+                            ).properties(
+                                width=800,
+                                height=400,
+                                title={
+                                    'text': f"{trend_break_string} Trend Break has been observed for {latest_week_string} in latest week",
+                                    'anchor': 'start'
+                                }
+                            )
+                            # Plot the data for holiday
+                            holiday = alt.Chart(holidays_data).mark_circle().encode(
+                                x='ds:T',
+                                y='y:Q',
+                                color=alt.Color('Legend:N', scale=color_scale),
+                                tooltip=[alt.Tooltip('holiday:N', title='Holiday')]
+                            )
+    
+                            # Plot the data for pass
+                            pass_chart = alt.Chart(pass_data).mark_circle().encode(
+                                x='ds:T',
+                                y='y:Q',
+                                color=alt.Color('Legend:N', scale=color_scale),
+                                tooltip=[alt.Tooltip('ds:T', title='Date'), alt.Tooltip('y:Q', title='Value')]
+                            )
+    
+                            # Add ML-based bounds
+                            ml_based_bounds = alt.Chart(forecast).mark_area(
+                                color='blue',
+                                opacity=0.2
+                            ).encode(
+                                x=alt.X('ds:T', title='Date'),
+                                y=alt.Y('yhat_lower:Q', title='Metric'),
+                                y2=alt.Y2('yhat_upper:Q', title='Volume')
+                            )
+    
+                            #max_date_rca_text = fail_data.loc[fail_data['ds'] == fail_data['ds'].max(), 'rca_text'].iloc[0]
+    
+                            # max_date_rca_text = 'New test'
+                            # ml_based_bounds_updated = ml_based_bounds + alt.Chart({'values': [{'x': 1, 'y': 1, 'text': max_date_rca_text}]}).mark_text(
+                            #                                             align='right',
+                            #                                             baseline='top',
+                            #                                             dx=-10,  # Adjust this value to adjust the horizontal position
+                            #                                             dy=10,   # Adjust this value to adjust the vertical position
+                            #                                             fontSize=12,
+                            #                                             fontWeight='bold',
+                            #                                             color='black'
+                            #                                         ).encode(
+                            #                                             x=alt.value(1),  # Positioning the text at x=1 (right side)
+                            #                                             y=alt.value(1),  # Positioning the text at y=1 (top)
+                            #                                             text=alt.value(max_date_rca_text)
+                            #                                         )
+    
+                            # Combine the fail data chart, ML-based bounds, holiday names, and pass data points
+                            combined_chart = alt.layer(rac, ml_based_bounds, holiday, pass_chart).configure_axis(grid=False)
+    
+                            if graph_type == 'ML Based Thresholds':
+                                ax.fill_between(forecast['ds'], forecast['yhat_lower'], forecast['yhat_upper'],
+                                                color='blue', alpha=0.2, label='ML Based Bounds')
+                            elif graph_type == 'Manual Thresholds':
+                                ax.fill_between(forecast['ds'], forecast['5%_decrease'], forecast['5%_increase'],
+                                                color='red', alpha=0.2, label='Calc Interval')
+    
+                                # ax.plot(forecast['ds'], forecast['yhat'], color='grey', label='Trend')
+                            ax.set_xlabel('Date')
+                            ax.set_ylabel('Value')
+    
+                            lower_buffer = 100
+                            buffer = 200
+    
+                            columns_to_check = ['yhat_upper', 'y']
+                            max_value_specific_columns = forecast[columns_to_check].max().max()
+    
+                            ax.set_ylim(min(forecast['yhat_lower']) - lower_buffer, max_value_specific_columns + buffer)
+    
+                            # ax.legend()
+    
+                            legend = ax.legend(loc='lower right')
+    
+                            # Set legend font size
+                            font_size = 5  # Change font size as needed
+                            for text in legend.get_texts():
+                                text.set_fontsize(font_size)
+    
+                            plt.title(str(result_string))
+                        # gRaph code ends here
+                        ################################################################################
+    
+                        graphNumber = graphNumber + 1
+    
+                    count_outside_percent_interval = \
+                        forecast[
+                            (forecast['y'] < forecast['5%_decrease']) | (forecast['y'] > forecast['5%_increase'])].shape[0]
+                    count_outside_forecast = \
+                        forecast[(forecast['y'] < forecast['yhat_lower']) | (forecast['y'] > forecast['yhat_upper'])].shape[
+                            0]
+                    selected_row = forecast.loc[forecast['ds'].idxmax()]
+    
+                    # append to new dataframe
+                    forecastAppend = forecast[['ds', 'yhat_lower', 'yhat_upper', 'y']].copy()
+    
+                    forecastAppend['Granularity'] = result_string
+                    sr2 = forecastAppend.iloc[forecastAppend['ds'].idxmax()]
+    
+                    appendReal = pd.concat([appendReal, sr2.to_frame().transpose()], ignore_index=True)
+    
+                    if selected_row['yhat_lower'] <= selected_row['y'] <= selected_row['yhat_upper']:
+    
+                        latest_data_point_color = 'g'
+                        print(f"Completed Time series Analysis for Combination - {selected_combination} with Result: ",
+                              end="");
+                        display(HTML("<font color='green'><b>PASS</b></font>"))
+    
+    
+                    else:
                         latest_data_point_color = 'r'
-                        prior_data_points_color = 'gray'
-
-                        forecast = forecast.merge(df_holidays_manual[['ds', 'holiday']], on='ds', how='left')
-
-                        forecast['Legend'] = forecast.apply(lambda row: 'Holiday' if isinstance(row['holiday'], str)else ('Pass' if row['y'] >= row['yhat_lower'] and row['y'] <= row['yhat_upper'] else 'Fail'),axis=1)
-
-                        holidays_data = forecast[forecast['Legend'] == 'Holiday']
-                        pass_data = forecast[forecast['Legend'] == 'Pass']
-                        fail_data = forecast[forecast['Legend'] == 'Fail']
-
-                        holidays_data['rca_text'] = holidays_data['holiday'].copy()
-                        fail_data['rca_text'] = ''
-
-                        ax.plot(pass_data['ds'].values, pass_data['y'].values, 'o', color=prior_data_points_color,
-                                markersize=2,
-                                label='Pass Data')
-                        ax.plot(fail_data['ds'].values, fail_data['y'].values, 'o', color=latest_data_point_color,
-                                markersize=4,
-                                label='Fail Data', zorder=5)
-                        ax.plot(holidays_data['ds'].values, holidays_data['y'].values, 'o', color='blue', markersize=4,
-                                label='Holidays', zorder=5)
-
-                        fail_data = pd.concat([fail_data, holidays_data], ignore_index=True)
-
-                        for index, row in fail_data.iterrows():
-                            if not row['rca_text']:
-                                filtered_data.rename(columns={'Date': 'ds', METRIC_COLUMN: 'y'}, inplace=True)
-                                max_date = row['ds']
-                                rca_input_df = filtered_data_all.copy()
-                                if row['y'] > row['yhat_upper']:
-                                    failureType = 'Upper'
-                                else:
-                                     failureType = 'Lower'
-
-
-
-                                rca_input_df.rename(columns={'y': METRIC_COLUMN}, inplace=True)
-                                
-                                rca_text = custom_rca_for_each_week(max_date, rca_input_df, METRIC_COLUMN, metric_val,failureType)
-                                fail_data.at[index, 'rca_text'] = rca_text
-
-                        # convert the list into string
-                        trend_break_string = ", ".join(Trend_Break)
-                        latest_week_string = ", ".join(Latest_Week)
-
-                        # set the color scale
-                        color_scale = alt.Scale(domain=['Fail', 'Pass', 'Holiday'], range=['red', 'grey', 'blue'])
-
-                        # Plot the data for rca
-                        rac = alt.Chart(fail_data).mark_circle().encode(
-                            x='ds:T',
-                            y='y:Q',
-                            color=alt.Color('Legend:N', scale=color_scale),
-                            tooltip=[alt.Tooltip('rca_text:N', title="  ")]
-                        ).properties(
-                            width=800,
-                            height=400,
-                            title={
-                                'text': f"{trend_break_string} Trend Break has been observed for {latest_week_string} in latest week",
-                                'anchor': 'start'
-                            }
-                        )
-                        # Plot the data for holiday
-                        holiday = alt.Chart(holidays_data).mark_circle().encode(
-                            x='ds:T',
-                            y='y:Q',
-                            color=alt.Color('Legend:N', scale=color_scale),
-                            tooltip=[alt.Tooltip('holiday:N', title='Holiday')]
-                        )
-
-                        # Plot the data for pass
-                        pass_chart = alt.Chart(pass_data).mark_circle().encode(
-                            x='ds:T',
-                            y='y:Q',
-                            color=alt.Color('Legend:N', scale=color_scale),
-                            tooltip=[alt.Tooltip('ds:T', title='Date'), alt.Tooltip('y:Q', title='Value')]
-                        )
-
-                        # Add ML-based bounds
-                        ml_based_bounds = alt.Chart(forecast).mark_area(
-                            color='blue',
-                            opacity=0.2
-                        ).encode(
-                            x=alt.X('ds:T', title='Date'),
-                            y=alt.Y('yhat_lower:Q', title='Metric'),
-                            y2=alt.Y2('yhat_upper:Q', title='Volume')
-                        )
-
-                        #max_date_rca_text = fail_data.loc[fail_data['ds'] == fail_data['ds'].max(), 'rca_text'].iloc[0]
-
-                        # max_date_rca_text = 'New test'
-                        # ml_based_bounds_updated = ml_based_bounds + alt.Chart({'values': [{'x': 1, 'y': 1, 'text': max_date_rca_text}]}).mark_text(
-                        #                                             align='right',
-                        #                                             baseline='top',
-                        #                                             dx=-10,  # Adjust this value to adjust the horizontal position
-                        #                                             dy=10,   # Adjust this value to adjust the vertical position
-                        #                                             fontSize=12,
-                        #                                             fontWeight='bold',
-                        #                                             color='black'
-                        #                                         ).encode(
-                        #                                             x=alt.value(1),  # Positioning the text at x=1 (right side)
-                        #                                             y=alt.value(1),  # Positioning the text at y=1 (top)
-                        #                                             text=alt.value(max_date_rca_text)
-                        #                                         )
-
-                        # Combine the fail data chart, ML-based bounds, holiday names, and pass data points
-                        combined_chart = alt.layer(rac, ml_based_bounds, holiday, pass_chart).configure_axis(grid=False)
-
-                        if graph_type == 'ML Based Thresholds':
-                            ax.fill_between(forecast['ds'], forecast['yhat_lower'], forecast['yhat_upper'],
-                                            color='blue', alpha=0.2, label='ML Based Bounds')
-                        elif graph_type == 'Manual Thresholds':
-                            ax.fill_between(forecast['ds'], forecast['5%_decrease'], forecast['5%_increase'],
-                                            color='red', alpha=0.2, label='Calc Interval')
-
-                            # ax.plot(forecast['ds'], forecast['yhat'], color='grey', label='Trend')
-                        ax.set_xlabel('Date')
-                        ax.set_ylabel('Value')
-
-                        lower_buffer = 100
-                        buffer = 200
-
-                        columns_to_check = ['yhat_upper', 'y']
-                        max_value_specific_columns = forecast[columns_to_check].max().max()
-
-                        ax.set_ylim(min(forecast['yhat_lower']) - lower_buffer, max_value_specific_columns + buffer)
-
-                        # ax.legend()
-
-                        legend = ax.legend(loc='lower right')
-
-                        # Set legend font size
-                        font_size = 5  # Change font size as needed
-                        for text in legend.get_texts():
-                            text.set_fontsize(font_size)
-
-                        plt.title(str(result_string))
-                    # gRaph code ends here
-                    ################################################################################
-
-                    graphNumber = graphNumber + 1
-
-                count_outside_percent_interval = \
-                    forecast[
-                        (forecast['y'] < forecast['5%_decrease']) | (forecast['y'] > forecast['5%_increase'])].shape[0]
-                count_outside_forecast = \
-                    forecast[(forecast['y'] < forecast['yhat_lower']) | (forecast['y'] > forecast['yhat_upper'])].shape[
-                        0]
-                selected_row = forecast.loc[forecast['ds'].idxmax()]
-
-                # append to new dataframe
-                forecastAppend = forecast[['ds', 'yhat_lower', 'yhat_upper', 'y']].copy()
-
-                forecastAppend['Granularity'] = result_string
-                sr2 = forecastAppend.iloc[forecastAppend['ds'].idxmax()]
-
-                appendReal = pd.concat([appendReal, sr2.to_frame().transpose()], ignore_index=True)
-
-                if selected_row['yhat_lower'] <= selected_row['y'] <= selected_row['yhat_upper']:
-
-                    latest_data_point_color = 'g'
-                    print(f"Completed Time series Analysis for Combination - {selected_combination} with Result: ",
-                          end="");
-                    display(HTML("<font color='green'><b>PASS</b></font>"))
-
-
-                else:
-                    latest_data_point_color = 'r'
-                    #         if graphNumber < graphVal:
-                #             ax.text(0.03, 0.95, rca_text, fontsize=7, ha='left', va='top', transform=ax.transAxes, bbox=dict(facecolor='none', edgecolor='black', boxstyle='round,pad=0.5'))
-
-                #     if graphNumber < graphVal:
-                #         ax.plot(forecast['ds'].iloc[latest_data_point_index], forecast['y'].iloc[latest_data_point_index], f'{latest_data_point_color}.', markersize=16,label='Latest Data')
-                if selected_row['yhat_lower'] <= selected_row['y'] <= selected_row['yhat_upper']:
+                        #         if graphNumber < graphVal:
+                    #             ax.text(0.03, 0.95, rca_text, fontsize=7, ha='left', va='top', transform=ax.transAxes, bbox=dict(facecolor='none', edgecolor='black', boxstyle='round,pad=0.5'))
+    
+                    #     if graphNumber < graphVal:
+                    #         ax.plot(forecast['ds'].iloc[latest_data_point_index], forecast['y'].iloc[latest_data_point_index], f'{latest_data_point_color}.', markersize=16,label='Latest Data')
+                    if selected_row['yhat_lower'] <= selected_row['y'] <= selected_row['yhat_upper']:
+                        pass
+                    else:
+                        container_Brand_volume.write(result_string)
+                        container_Brand_volume.altair_chart(combined_chart, use_container_width=True)
+                        # container_Brand_volume.write(rca_text)
+                        # st.write(result_string)
+                        # st.altair_chart(combined_chart, use_container_width=True)
+                except:
                     pass
-                else:
-                    container_Brand_volume.write(result_string)
-                    container_Brand_volume.altair_chart(combined_chart, use_container_width=True)
-                    # container_Brand_volume.write(rca_text)
-                    # st.write(result_string)
-                    # st.altair_chart(combined_chart, use_container_width=True)
-
             def unique_sorted_values_plus_ALL(array):
                 unique = array.unique().tolist()
                 unique.sort()
