@@ -16,7 +16,7 @@ import altair as alt
 from streamlit import components
 import streamlit as st
 import pandas as pd
-import numpy as np
+import nump as np
 import streamlit.components.v1 as comp
 
 
@@ -1475,13 +1475,18 @@ def main():
                 result.to_csv("Data_Validation.csv")
                 result = result.sort_values(by='Check', ascending=False)
 
-                unique_conditions = result['Check'].unique()
+                # Get unique conditions and add "ALL" option
+                unique_conditions = result['Check'].unique().tolist()
+                unique_conditions.insert(0, "ALL")
                 
+                # Select box for conditions with "ALL" option
                 selected_condition = container.selectbox("Select Condition", unique_conditions)
                 
                 # Filter DataFrame based on selected condition
-                filtered_result = result[result['Check'] == selected_condition]
-
+                if selected_condition == "ALL":
+                    filtered_result = result
+                else:
+                    filtered_result = result[result['Check'] == selected_condition]
                 styled_df = filtered_result.style.applymap(highlight_pass_fail)
                 
                 container.dataframe(styled_df, width=1700, hide_index=True)
