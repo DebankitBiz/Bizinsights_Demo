@@ -15,7 +15,7 @@ import altair as alt
 
 from streamlit import components
 import streamlit as st
-import pandas as pd
+import padas as pd
 import numpy as np
 import streamlit.components.v1 as comp
 
@@ -165,6 +165,9 @@ def main():
         st.write(selected_File_Name)
         selected_brand_Name = str(selected_brand_Name)  # Convert to string if it's not already
         brands_list = selected_brand_Name.split(";")
+        selected_rca_Name = str(selected_rca_Name)  # Convert to string if it's not already
+        rca_list = selected_rca_Name.split(";")
+
 
 
 
@@ -474,7 +477,7 @@ def main():
                 RCAdf = pd.DataFrame()
 
                 RCAdf = pd.DataFrame(columns=['List_Value', 'pct_recent', 'pct_history', 'abs', 'Column Name', 'Metric Val'])
-                columns_for_RCA_analysis = ['SP_SOURCE','INDICATION','CLASS']
+                columns_for_RCA_analysis = rca_list
 
                 RCADF = perform_root_cause(latest_8_weeks_data, METRIC_COLUMN, columns_for_RCA_analysis, metric_rca_val,failureType)
 
