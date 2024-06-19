@@ -15,7 +15,7 @@ import altair as alt
 
 from streamlit import components
 import streamlit as st
-import pandas as pd
+import padas as pd
 import numpy as np
 import streamlit.components.v1 as comp
 
@@ -162,7 +162,7 @@ def main():
         selected_File_Name = config_df.iloc[selected_row_index]['File_Name']
         selected_brand_Name = config_df.iloc[selected_row_index]['brands_list']
         selected_rca_Name = config_df.iloc[selected_row_index]['RCA Analysis Columns']
-
+        st.write(selected_File_Name)
         selected_brand_Name = str(selected_brand_Name)  # Convert to string if it's not already
         brands_list = selected_brand_Name.split(";")
 
@@ -1080,6 +1080,7 @@ def main():
                 global RCAdf, container_Brand_volume, container_pattern_check, freshnessDf, uniqueDf, notnullDf ,output_file
                 global EXTRACTED_DATA_FROM_DB
                 EXTRACTED_DATA_FROM_DB = pd.read_csv(selected_File_Name)
+                st.write(EXTRACTED_DATA_FROM_DB)
                 TABLE_NAME = row['Table Name']
                 FILTER_TO_BE_APPLIED = row['Filter']
                 DATE_COLUMN_IN_DATASET = row['Date_Field']
