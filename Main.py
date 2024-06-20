@@ -813,7 +813,7 @@ def main():
                 key_filter_data_52_weeks['ds'] = pd.to_datetime(key_filter_data_52_weeks['ds'])
 
                 grouped_data = key_filter_data_52_weeks.groupby(['ds', 'Key'])['y'].sum().unstack().reset_index()
-                grouped_data = grouped_data.nlargest(26, 'ds').copy()
+                grouped_data = grouped_data.nlargest(5, 'ds').copy()
                 grouped_data['ds'] = grouped_data['ds'].dt.strftime('%Y-%m-%d')
                 # grouped_data[others_bucket] = grouped_data[columns_to_add].sum(axis=1)
                 # grouped_data = grouped_data.drop(columns=columns_to_add)
