@@ -711,10 +711,18 @@ def main():
                         # Combine all formatted results into a single string
                         result_string = "\n".join(formatted_results_increased + formatted_results_decreased)
 
-                        # Print or use result_string as needed
+                        # # Print or use result_string as needed
+                        # chart = alt.Chart(data_melted).mark_bar(size=30).encode(
+                        #     x=alt.X('ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
+                        #     y=alt.Y('sum(Value):Q', axis=alt.Axis(title='Contribution %', format='%')),
+                        #     color='Category:N'
+                        # ).properties(width=800, height=400, title={'text': '     ', 'anchor': 'middle'})
+
+                        # Bar chart
                         chart = alt.Chart(data_melted).mark_bar(size=30).encode(
-                            x=alt.X('ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
-                            y=alt.Y('sum(Value):Q', axis=alt.Axis(title='Contribution %', format='%')),
+                            x=alt.X('ds:T', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
+                            y=alt.Y('sum(Value):Q', stack='normalize',
+                                    axis=alt.Axis(title='Contribution %', format='%')),
                             color='Category:N'
                         ).properties(width=800, height=400, title={'text': '     ', 'anchor': 'middle'})
 
