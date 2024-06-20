@@ -971,7 +971,7 @@ def main():
                         })
                         # Bar chart
                         chart = alt.Chart(data_melted).mark_bar(size=30).encode(
-                            x=alt.X('ds:T', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
+                            x=alt.X('ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
                             y=alt.Y('sum(Value):Q', stack='normalize',
                                     axis=alt.Axis(title='Contribution %', format='%')),
                             color='Category:N'
@@ -981,7 +981,7 @@ def main():
                         red_point = alt.Chart(red_points_data).mark_circle(
                             color='red', size=100, filled=True
                         ).encode(
-                            x=alt.X('ds:T', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
+                            x=alt.X('ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
                             y=alt.Y('y:Q'),  # Use the y value calculated above
                             tooltip=alt.Tooltip('text:N', title='Text')
                         )
