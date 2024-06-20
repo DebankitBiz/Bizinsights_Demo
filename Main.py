@@ -16,7 +16,7 @@ import altair as alt
 from streamlit import components
 import streamlit as st
 import pandas as pd
-import numpy as np
+import nump as np
 import streamlit.components.v1 as comp
 
 
@@ -615,42 +615,205 @@ def main():
                     return 200
 
                 key_filter_data.to_csv('key_filter_data.csv')
+                # for i in unique_keys:
+
+                #     model = Prophet(interval_width=0.95)
+                #     unique_key_data = key_filter_data[key_filter_data['Key'] == i].copy()
+                #     if len(unique_key_data) > 0:
+                #         try:
+                #             model.fit(unique_key_data)
+                #             future = model.make_future_dataframe(periods=1, freq='W-Fri')
+                #             forecast = model.predict(future)
+                #             forecast = pd.merge(forecast, unique_key_data[['ds', 'y']], on='ds', how='left')
+                #             forecast = forecast.dropna(subset=['y'])
+                #             forecastAppend = forecast[['ds', 'yhat_lower', 'yhat_upper', 'y']].copy()
+                #             # st.write(i)
+
+                #             forecastAppend['Granularity'] = i
+                #             forecastAppend['Dimension'] = aggregateDimension
+                #             LW_R = forecastAppend.iloc[forecastAppend['ds'].idxmax()]
+                #             # print(LW_R)
+                #             # print(LW_R)
+                #             PATTERN_CHECKS_RESULTS = pd.concat([PATTERN_CHECKS_RESULTS, LW_R.to_frame().transpose()],ignore_index=True)
+                #             LW_R_DF = LW_R.to_frame().transpose()
+                #             OUTSIDE_FORECAST_COUNT = LW_R_DF[
+                #                 (LW_R_DF['y'] < LW_R_DF['yhat_lower']) | (LW_R_DF['y'] > LW_R_DF['yhat_upper'])].shape[
+                #                 0]
+                #             SEGMENTDROP_VAL = 'No' if OUTSIDE_FORECAST_COUNT == 0 else 'Yes'
+                #             print(f'Segment drops for {i}: {SEGMENTDROP_VAL}')
+                #         except Exception as e:
+                #             pass
+                #             print(e)
+
+                # # Plotting
+                # key_filter_data_52_weeks = key_filter_data[key_filter_data['ds'] > start_date_52_weeks_ago]
+                # key_filter_data_52_weeks['ds'] = pd.to_datetime(key_filter_data_52_weeks['ds'])
+
+                # grouped_data = key_filter_data_52_weeks.groupby(['ds', 'Key'])['y'].sum().unstack().reset_index()
+                # grouped_data = grouped_data.nlargest(5, 'ds').copy()
+                # grouped_data['ds'] = grouped_data['ds'].dt.strftime('%Y-%m-%d')
+                # # grouped_data[others_bucket] = grouped_data[columns_to_add].sum(axis=1)
+                # # grouped_data = grouped_data.drop(columns=columns_to_add)
+
+                # # Set the default width and height for all charts
+                # st.set_option('deprecation.showPyplotGlobalUse', False)
+                # st.set_option('deprecation.showfileUploaderEncoding', False)
+                # plt.xlim(0, 20)
+                # plt.figure(figsize=(10, 6))
+                # plt.xlim(0, 20)
+                # sns.set(style="whitegrid")
+
+                # # Calculate the cumulative sum of values for each group
+                # grouped_data = grouped_data.sort_values(by='ds')
+                # grouped_cumsum = grouped_data[unique_keys].cumsum(axis=1)
+
+                # # Plot stacked bars
+                # for i, t in enumerate(unique_keys):
+
+                #     if SEGMENTDROP_VAL == 'Yes':
+                #         grouped_data = grouped_data.drop(columns=['Others'], errors='ignore')
+                #         data_melted = grouped_data.melt(id_vars=['ds'], var_name='Category', value_name='Value')
+
+                #         # Get unique categories from the data
+                #         categories = set(data_melted['Category'])
+
+                #         # Create a dictionary to store category results
+                #         category_results = {}
+
+                #         # Iterate over each category
+                #         for category in categories:
+                #             category_data = data_melted[data_melted['Category'] == category]
+                #             filtered_data = category_data[category_data['Value'] > 0].tail(2)
+
+                #             if not filtered_data.empty and len(filtered_data) == 2:
+                #                 # Extract the last two values
+                #                 last_values = filtered_data['Value'].values
+                #                 # Perform the subtraction
+                #                 result = last_values[-1] - last_values[-2]
+                #                 # Store the result in the dictionary
+                #                 category_results[category] = result
+
+                #         # Initialize lists to store formatted results for increased and decreased values
+                #         formatted_results_increased = []
+                #         formatted_results_decreased = []
+
+                #         for category, value in category_results.items():
+                #             # Determine if the value is positive, negative, or zero
+                #             if value > 0:
+                #                 upper_text = "has increased by"
+                #                 formatted_result = f"Contribution percentage of {category} for the latest week {upper_text} {abs(value) * 100:.1f}% compared to the previous week."
+                #                 formatted_results_increased.append(formatted_result)
+                #             elif value < 0:
+                #                 upper_text = "has decreased by"
+                #                 formatted_result = f"Contribution percentage of {category} for the latest week has experienced {abs(value) * 100:.1f}% {upper_text} compared to the previous week."
+                #                 formatted_results_decreased.append(formatted_result)
+
+                #         # Combine all formatted results into a single string
+                #         result_string = "\n".join(formatted_results_increased + formatted_results_decreased)
+
+                #         # Print or use result_string as needed
+                #         chart = alt.Chart(data_melted).mark_bar(size=30).encode(
+                #             x=alt.X('ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
+                #             y=alt.Y('sum(Value):Q', axis=alt.Axis(title='Contribution %', format='%')),
+                #             color='Category:N'
+                #         ).properties(width=800, height=400, title={'text': '     ', 'anchor': 'middle'})
+
+            
+
+                #         # Define the last date and tooltip text
+                #         last_date = data_melted['ds'].max()
+                #         tooltip_text = (result_string)  # Change this to your actual tooltip text
+
+                #         # Create a red point chart
+                #         red_point = alt.Chart(
+                #             pd.DataFrame({'x': [last_date], 'y': [0.5], 'text': [tooltip_text]})).mark_circle(
+                #             color='red', size=100, filled=True
+                #         ).encode(
+                #             x='x:O',
+                #             y=alt.Y('y:Q', axis=alt.Axis(title='Contribution %', format='%')),
+                #             tooltip=alt.Tooltip('text:N', title='Text')
+                #         )
+
+                #         # Combine the bar chart and red point chart
+                #         final_chart = alt.layer(chart, red_point).configure_axis(grid=False)
+                #         container_pattern = st.container(border = True)
+                #         container_pattern_check.altair_chart(final_chart, use_container_width=True)
+
+
+                fail_date = []
+                all_date = []
                 for i in unique_keys:
 
                     model = Prophet(interval_width=0.95)
                     unique_key_data = key_filter_data[key_filter_data['Key'] == i].copy()
+
                     if len(unique_key_data) > 0:
                         try:
                             model.fit(unique_key_data)
                             future = model.make_future_dataframe(periods=1, freq='W-Fri')
+                            # future = model.make_future_dataframe(periods=1, freq='MS')
                             forecast = model.predict(future)
                             forecast = pd.merge(forecast, unique_key_data[['ds', 'y']], on='ds', how='left')
                             forecast = forecast.dropna(subset=['y'])
                             forecastAppend = forecast[['ds', 'yhat_lower', 'yhat_upper', 'y']].copy()
-                            # st.write(i)
 
                             forecastAppend['Granularity'] = i
                             forecastAppend['Dimension'] = aggregateDimension
+                            forecastAppend['Status'] = forecastAppend.apply(
+                                lambda row: 'Pass' if row['y'] >= row['yhat_lower'] and row['y'] <= row[
+                                    'yhat_upper'] else 'Fail',
+                                axis=1)
+
+                            fail_df = forecastAppend[forecastAppend['Status'] == "Fail"]
+                            fail_date.append(fail_df)
+
+                            all_date.append(forecastAppend)
+                            # Concatenate all forecasts into a single DataFrame
+
+                            # # Assuming fail_date is defined and populated
+                            # fail_date = [f for f in fail_df["ds"]]
+                            #
+                            # # Specify the CSV file path
+                            # csv_path = 'Pages/fail_date.csv'
+                            #
+                            # # Writing the list to a CSV file
+                            # with open(csv_path, 'w', newline='') as csvfile:
+                            #     writer = csv.writer(csvfile)
+                            #     writer.writerow(['ds'])  # Writing the header
+                            #     for date in fail_date:
+                            #         writer.writerow([date])
+
+                            # # Optionally, display a message using Streamlit
+                            # st.write(f"Fail date list saved to {csv_path}")
+
                             LW_R = forecastAppend.iloc[forecastAppend['ds'].idxmax()]
                             # print(LW_R)
                             # print(LW_R)
-                            PATTERN_CHECKS_RESULTS = pd.concat([PATTERN_CHECKS_RESULTS, LW_R.to_frame().transpose()],ignore_index=True)
+                            PATTERN_CHECKS_RESULTS = pd.concat([PATTERN_CHECKS_RESULTS, LW_R.to_frame().transpose()],
+                                                               ignore_index=True)
+
                             LW_R_DF = LW_R.to_frame().transpose()
                             OUTSIDE_FORECAST_COUNT = LW_R_DF[
                                 (LW_R_DF['y'] < LW_R_DF['yhat_lower']) | (LW_R_DF['y'] > LW_R_DF['yhat_upper'])].shape[
                                 0]
                             SEGMENTDROP_VAL = 'No' if OUTSIDE_FORECAST_COUNT == 0 else 'Yes'
                             print(f'Segment drops for {i}: {SEGMENTDROP_VAL}')
+
                         except Exception as e:
                             pass
                             print(e)
+
+                all_forecasts_df = pd.concat(fail_date)
+                all_forecasts_date = pd.concat(all_date)
+                all_forecasts_df['ds'] = pd.to_datetime(all_forecasts_df['ds']).dt.date
+
 
                 # Plotting
                 key_filter_data_52_weeks = key_filter_data[key_filter_data['ds'] > start_date_52_weeks_ago]
                 key_filter_data_52_weeks['ds'] = pd.to_datetime(key_filter_data_52_weeks['ds'])
 
                 grouped_data = key_filter_data_52_weeks.groupby(['ds', 'Key'])['y'].sum().unstack().reset_index()
-                grouped_data = grouped_data.nlargest(5, 'ds').copy()
+                grouped_data = grouped_data.nlargest(26, 'ds').copy()
                 grouped_data['ds'] = grouped_data['ds'].dt.strftime('%Y-%m-%d')
                 # grouped_data[others_bucket] = grouped_data[columns_to_add].sum(axis=1)
                 # grouped_data = grouped_data.drop(columns=columns_to_add)
@@ -673,74 +836,163 @@ def main():
                     if SEGMENTDROP_VAL == 'Yes':
                         grouped_data = grouped_data.drop(columns=['Others'], errors='ignore')
                         data_melted = grouped_data.melt(id_vars=['ds'], var_name='Category', value_name='Value')
+                        # Assuming data_melted and the column 'ds' are already defined
+                        data_melted = data_melted.sort_values(by="ds", ascending=True)
+                        data_melted['ds'] = pd.to_datetime(data_melted['ds']).dt.date
 
-                        # Get unique categories from the data
-                        categories = set(data_melted['Category'])
+                        # st.write("data_melted")
+                        # st.write(data_melted)
 
-                        # Create a dictionary to store category results
-                        category_results = {}
+                        # Initialize variables
+                        last_pass_date = None
+                        fail_pass_pairs = []
 
-                        # Iterate over each category
-                        for category in categories:
-                            category_data = data_melted[data_melted['Category'] == category]
-                            filtered_data = category_data[category_data['Value'] > 0].tail(2)
+                        # Iterate over the DataFrame rows
+                        for index, row in all_forecasts_date.iterrows():
+                            if row['Status'] == 'Pass':
+                                last_pass_date = row['ds']
+                            elif row['Status'] == 'Fail' and last_pass_date:
+                                fail_pass_pairs.append({'fail_date': row['ds'], 'nearest_pass_date': last_pass_date})
 
-                            if not filtered_data.empty and len(filtered_data) == 2:
-                                # Extract the last two values
-                                last_values = filtered_data['Value'].values
-                                # Perform the subtraction
-                                result = last_values[-1] - last_values[-2]
-                                # Store the result in the dictionary
-                                category_results[category] = result
+                        # Convert fail_pass_pairs list to DataFrame
+                        fail_pass_df = pd.DataFrame(fail_pass_pairs)
+                        # Convert 'fail_date' and 'nearest_pass_date' columns to datetime format
+                        fail_pass_df['fail_date'] = pd.to_datetime(fail_pass_df['fail_date']).dt.date
+                        fail_pass_df['nearest_pass_date'] = pd.to_datetime(fail_pass_df['nearest_pass_date']).dt.date
 
-                        # Initialize lists to store formatted results for increased and decreased values
-                        formatted_results_increased = []
-                        formatted_results_decreased = []
+                        fail_pass_df = fail_pass_df.sort_values(by="fail_date", ascending=True)
+                        fail_pass_df = fail_pass_df.sort_values(by="nearest_pass_date", ascending=True)
+                        # Remove duplicate records from fail_pass_df
+                        fail_pass_df = fail_pass_df.drop_duplicates()
+                        # Display the result
 
-                        for category, value in category_results.items():
-                            # Determine if the value is positive, negative, or zero
-                            if value > 0:
-                                upper_text = "has increased by"
-                                formatted_result = f"Contribution percentage of {category} for the latest week {upper_text} {abs(value) * 100:.1f}% compared to the previous week."
-                                formatted_results_increased.append(formatted_result)
-                            elif value < 0:
-                                upper_text = "has decreased by"
-                                formatted_result = f"Contribution percentage of {category} for the latest week has experienced {abs(value) * 100:.1f}% {upper_text} compared to the previous week."
-                                formatted_results_decreased.append(formatted_result)
+                        # st.write("fail_pass_df")
+                        # st.write(fail_pass_df)
 
-                        # Combine all formatted results into a single string
-                        result_string = "\n".join(formatted_results_increased + formatted_results_decreased)
 
-                        # Print or use result_string as needed
+
+
+
+                        # Convert the 'date' column to datetime and then format it
+                        # pass_dates_df['date'] = pd.to_datetime(pass_dates_df['date']).dt.strftime('%Y-%m-%d')
+
+                        # Merge or filter based on the 'date' column in pass_dates_df and 'ds' column in data_melted
+                        #filtered_df = data_melted[data_melted['ds'].isin(pass_dates_df['date'])]
+                        # st.write("fail date")
+                        # st.write(all_forecasts_df)
+
+                        # Assuming fail_pass_df and data_melted are already defined DataFrames
+                        final_text = []
+                        # Iterate through the 'fail_date' and 'nearest_pass_date' columns
+                        for i, j in zip(fail_pass_df['fail_date'], fail_pass_df['nearest_pass_date']):
+                            #st.write(f"Checking fail date: {i} and nearest pass date: {j}")
+
+                            # Filter and sort fail_df by Category
+                            fail_df = data_melted[data_melted['ds'] == i].reset_index(drop=True)
+                            fail_df = fail_df.sort_values(by="Category", ascending=True)
+
+                            # Filter and sort pass_df by Category
+                            pass_df = data_melted[data_melted['ds'] == j].reset_index(drop=True)
+                            pass_df = pass_df.rename(
+                                columns={"ds": "ds_p", "Category": "Category_p", "Value": "Value_p"})
+                            pass_df = pass_df.sort_values(by="Category_p", ascending=True)
+
+                            # Align the indexes by resetting them again after sorting
+                            fail_df = fail_df.reset_index(drop=True)
+                            pass_df = pass_df.reset_index(drop=True)
+
+                            # Multiply the values by 100
+                            fail_df["Value"] = fail_df["Value"] * 100
+                            pass_df["Value_p"] = pass_df["Value_p"] * 100
+
+                            # Concatenate fail_df and pass_df
+                            final = pd.concat([fail_df, pass_df], axis=1)
+
+                            # Calculate the difference
+                            final["Difference"] = final["Value_p"] - final["Value"]
+
+                            # Display the final DataFrame
+                            #st.write(final)
+
+                            # Initialize an empty dictionary to store the result
+                            result_dict = {}
+
+                            # Iterate through the final DataFrame to populate the dictionary
+                            for index, row in final.iterrows():
+                                category_p = row['Category_p']
+                                difference = row['Difference']
+                                result_dict[category_p] = difference
+
+                            # Output the result dictionary
+                            #st.write(result_dict)
+
+                            # Initialize a list to store formatted results
+                            formatted_results = []
+
+                            for category, value in result_dict.items():
+                                # Determine if the value is positive, negative, or zero
+                                if value > 0:
+                                    formatted_result = f"Contribution percentage of {category} for the latest week has decreased by {value:.1f}% compared to the previous week."
+                                    formatted_results.append(formatted_result)
+                                elif value < 0:
+                                    formatted_result = f"Contribution percentage of {category} for the latest week has increased  by {abs(value):.1f}% compared to the previous week."
+                                    formatted_results.append(formatted_result)
+
+                            # Combine all formatted results into a single string
+                            combined_results = " ".join(formatted_results)
+                            final_text.append(combined_results)
+
+
+
+
+
+
+                        result_string = "Tooltip text example"
+
+                        # Define the last date and tooltip text
+                        matched_dates = all_forecasts_df[all_forecasts_df["ds"].isin(data_melted['ds'])]
+
+                        tooltip_text = result_string  # Change this to your actual tooltip text
+
+                        # Create a list of red points for the matched dates
+
+                        # Create a dictionary for fail_date to final_text mapping
+                        fail_date_to_text = dict(zip(fail_pass_df['fail_date'], final_text))
+
+                        # Create a list for the text column based on the matching fail_date
+                        text_list = [fail_date_to_text.get(matched_date, "No Pass Date Detected") for matched_date in
+                                     matched_dates['ds']]
+
+                        # Create the DataFrame
+                        red_points_data = pd.DataFrame({
+                            'ds': matched_dates['ds'],
+                            'y': 0.5,  # Fixed y value for the middle of the bars
+                            'text': text_list
+                        })
+                        # Bar chart
                         chart = alt.Chart(data_melted).mark_bar(size=30).encode(
-                            x=alt.X('ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
-                            y=alt.Y('sum(Value):Q', axis=alt.Axis(title='Contribution %', format='%')),
+                            x=alt.X('ds:T', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
+                            y=alt.Y('sum(Value):Q', stack='normalize',
+                                    axis=alt.Axis(title='Contribution %', format='%')),
                             color='Category:N'
                         ).properties(width=800, height=400, title={'text': '     ', 'anchor': 'middle'})
 
-            
-
-                        # Define the last date and tooltip text
-                        last_date = data_melted['ds'].max()
-                        tooltip_text = (result_string)  # Change this to your actual tooltip text
-
-                        # Create a red point chart
-                        red_point = alt.Chart(
-                            pd.DataFrame({'x': [last_date], 'y': [0.5], 'text': [tooltip_text]})).mark_circle(
+                        # Red point chart
+                        red_point = alt.Chart(red_points_data).mark_circle(
                             color='red', size=100, filled=True
                         ).encode(
-                            x='x:O',
-                            y=alt.Y('y:Q', axis=alt.Axis(title='Contribution %', format='%')),
+                            x=alt.X('ds:T', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
+                            y=alt.Y('y:Q'),  # Use the y value calculated above
                             tooltip=alt.Tooltip('text:N', title='Text')
                         )
 
                         # Combine the bar chart and red point chart
                         final_chart = alt.layer(chart, red_point).configure_axis(grid=False)
-                        container_pattern = st.container(border = True)
+
                         container_pattern_check.altair_chart(final_chart, use_container_width=True)
 
-
                         break
+
 
 
 
