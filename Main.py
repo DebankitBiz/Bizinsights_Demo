@@ -969,26 +969,34 @@ def main():
                             'y': 0.5,  # Fixed y value for the middle of the bars
                             'text': text_list
                         })
+                        
+                        # Format the date column to MM/DD/YYYY
+                        red_points_data['formatted_ds'] = pd.to_datetime(red_points_data['ds']).dt.strftime('%m/%d/%Y')
+                        
+                        # Similarly, format the date column in data_melted
+                        data_melted['formatted_ds'] = pd.to_datetime(data_melted['ds']).dt.strftime('%m/%d/%Y')
+                        
                         # Bar chart
                         chart = alt.Chart(data_melted).mark_bar(size=30).encode(
-                            x=alt.X('ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
+                            x=alt.X('formatted_ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
                             y=alt.Y('sum(Value):Q', stack='normalize',
-                                    axis=alt.Axis(title='Contribution %', format='mm/dd/yyyy')),
+                                    axis=alt.Axis(title='Contribution %', format='%')),
                             color='Category:N'
                         ).properties(width=800, height=400, title={'text': '     ', 'anchor': 'middle'})
-
+                        
                         # Red point chart
                         red_point = alt.Chart(red_points_data).mark_circle(
                             color='red', size=100, filled=True
                         ).encode(
-                            x=alt.X('ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
+                            x=alt.X('formatted_ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
                             y=alt.Y('y:Q'),  # Use the y value calculated above
                             tooltip=alt.Tooltip('text:N', title='Text')
                         )
-
+                        
                         # Combine the bar chart and red point chart
                         final_chart = alt.layer(chart, red_point).configure_axis(grid=False)
-
+                        
+                        # Assuming container_pattern_check is a Streamlit element
                         container_pattern_check.altair_chart(final_chart, use_container_width=True)
 
                         break
