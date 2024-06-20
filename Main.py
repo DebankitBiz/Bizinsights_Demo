@@ -973,7 +973,7 @@ def main():
                         chart = alt.Chart(data_melted).mark_bar(size=30).encode(
                             x=alt.X('ds:O', axis=alt.Axis(title='Date', labelAngle=-45), sort='ascending'),
                             y=alt.Y('sum(Value):Q', stack='normalize',
-                                    axis=alt.Axis(title='Contribution %', format='%')),
+                                    axis=alt.Axis(title='Contribution %', format='mm/dd/yyyy')),
                             color='Category:N'
                         ).properties(width=800, height=400, title={'text': '     ', 'anchor': 'middle'})
 
